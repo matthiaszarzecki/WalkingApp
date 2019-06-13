@@ -1,0 +1,6 @@
+framework module flutter_pedometer {
+  umbrella header "flutter_pedometer-umbrella.h"
+
+  export *
+  module * { export * }
+}
