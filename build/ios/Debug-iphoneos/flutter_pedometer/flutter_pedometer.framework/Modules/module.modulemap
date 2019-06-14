@@ -1,0 +1,11 @@
+framework module flutter_pedometer {
+  umbrella header "flutter_pedometer-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module flutter_pedometer.Swift {
+    header "flutter_pedometer-Swift.h"
+    requires objc
+}

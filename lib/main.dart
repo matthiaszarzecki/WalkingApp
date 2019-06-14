@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:flutter_pedometer/flutter_pedometer.dart';
+import 'package:walking_app/step_counter.dart';
+import 'package:walking_app/goal_slider.dart';
 
 void main() => runApp(new MyApp());
 
@@ -10,51 +10,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _stepCountValue = 'Unknown';
-  StreamSubscription<int> _subscription;
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    FlutterPedometer pedometer = new FlutterPedometer();
-    _subscription = pedometer.stepCountStream.listen(_onData,
-        onError: _onError, onDone: _onDone, cancelOnError: true);
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-  }
-
-  void _onData(int stepCountValue) async {
-    print(stepCountValue);
-
-    setState(() {
-      _stepCountValue = "$stepCountValue";
-    });
-  }
-
-  void _onDone() {}
-
-  void _onError(error) {
-    print("Flutter Pedometer Error: $error");
-  }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Walking App'),
+    GoalSlider goalSlider = GoalSlider();
+
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Walking App'),
         ),
-        body: new Center(
-          child: new Text('Steps taken: $_stepCountValue\n'),
-        ),
+        body: Center(
+          child: Column(children: [
+            Spacer(),
+            StepCounter(),
+            Spacer(),
+            goalSlider,
+            Spacer(),
+            Text(goalSlider.asdsadd),
+            Spacer(),
+        ])),
       ),
     );
   }
